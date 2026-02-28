@@ -16,18 +16,27 @@ module.exports = async (req, res) => {
 
     const { prompt } = req.body;
 
+    if (!prompt) {
+      throw new Error("Prompt vacío");
+    }
+
     const ai = new GoogleGenAI({
       apiKey: process.env.GEMINI_API_KEY
     });
 
     const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
-      contents: prompt,
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: prompt }]
+        }
+      ]
     });
 
-    return res.status(200).json({
-      text: response.text
-    });
+    const text = response.candidates[0].content.parts[0].text;
+
+    return res.status(200).json({ text });
 
   } catch (error) {
     console.error("ERROR REAL:", error);
