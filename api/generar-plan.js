@@ -13,8 +13,9 @@ module.exports = async (req, res) => {
     const response = await result.response;
     
     // El formato que tu index.html espera
+    const text = response.text();
     res.status(200).json({
-      candidates: [{ content: { parts: [{ text: response.text() }] } }]
+      candidates: [{ content: { parts: [{ text: text }] } }]
     });
   } catch (error) {
     // Esto evita que salga el error 500 genérico y nos da pistas
