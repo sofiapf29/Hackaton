@@ -1,32 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   String mensaje = '';
   bool cargando = false;
 
-  Future<void> login() async {
+  Future<void> register() async {
     setState(() {
       cargando = true;
       mensaje = '';
     });
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
       Navigator.pushReplacementNamed(context, '/dashboard');
     } on FirebaseAuthException catch (e) {
       setState(() {
-        mensaje = 'Correo o contraseña incorrectos';
+        if (e.code == 'weak-password') {
+          mensaje = 'La contraseña debe tener al menos 6 caracteres';
+        } else if (e.code == 'email-already-in-use') {
+          mensaje = 'Este correo ya está registrado';
+        } else {
+          mensaje = 'Error al registrar';
+        }
       });
     } finally {
       setState(() => cargando = false);
@@ -47,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Iniciar Sesión',
+                Text('Crear Cuenta',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 SizedBox(height: 24),
                 TextField(
@@ -76,15 +82,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: cargando ? null : login,
+                    onPressed: cargando ? null : register,
                     child: cargando
                         ? CircularProgressIndicator(color: Colors.white)
-                        : Text('Entrar', style: TextStyle(fontSize: 16)),
+                        : Text('Registrarse', style: TextStyle(fontSize: 16)),
                   ),
                 ),
-              TextButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, '/register'),
-                child: Text('¿No tienes cuenta? Regístrate'),
+                SizedBox(height: 8),
+                TextButton(
+                  onPressed: () => Navigator.pushReplacementNamed(context, '/'),
+                  child: Text('¿Ya tienes cuenta? Inicia sesión'),
                 ),
               ],
             ),
