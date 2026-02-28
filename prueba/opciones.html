@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlimentIA - Come bien gasta poco</title>
+<!-- puse este font porque se ve bonito -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- este es el link correcto para los iconos de google -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+  }
+
+  /* para que los iconos se vean bien en todos lados */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+  }
+
+  /* navbar */
+  .navbar {
+    background-color: #2e7d32;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+
+  .navbar h1 {
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .navbar h1 span {
+    color: #ffcc02;
+  }
+
+  .navbar button {
+    background: white;
+    color: #2e7d32;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .navbar button:hover {
+    background: #e8f5e9;
+  }
+
+  /* paginas */
+  .pagina {
+    display: none;
+  }
+
+  .pagina.activa {
+    display: block;
+  }
+
+  /* ====== PAGINA 1 ====== */
+  .hero-section {
+    text-align: center;
+    padding: 80px 20px 60px 20px;
+    background: linear-gradient(135deg, #e8f5e9 0%, #fff9c4 100%);
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-section .badge {
+    background: #c8e6c9;
+    color: #2e7d32;
+    padding: 5px 15px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-section h2 {
+    font-size: 55px;
+    font-weight: 700;
+    color: #1b1b1b;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .hero-section h2 em {
+    color: #43a047;
+    font-style: italic;
+  }
+
+  .hero-section p {
+    color: #666;
+    font-size: 17px;
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 35px;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-verde {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-verde:hover {
+    background: #43a047;
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: #2e7d32;
+    border: 2px solid #2e7d32;
+    padding: 13px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-outline:hover {
+    background: #e8f5e9;
+  }
+
+  /* estadisticas */
+  .stats-row {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 60px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-item .numero {
+    font-size: 34px;
+    font-weight: 700;
+    color: #2e7d32;
+  }
+
+  .stat-item .etiqueta {
+    font-size: 13px;
+    color: #888;
+    margin-top: 3px;
+  }
+
+  /* features */
+  .features-section {
+    padding: 70px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .features-section h3 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+
+  .grid-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .grid-features {
+      grid-template-columns: 1fr;
+    }
+    .hero-section h2 {
+      font-size: 36px;
+    }
+  }
+
+  .card-feature {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 25px;
+  }
+
+  .card-feature:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+    transition: 0.2s;
+  }
+
+  .icono-feature {
+    background: #e8f5e9;
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    color: #2e7d32;
+  }
+
+  .icono-feature .material-symbols-outlined {
+    font-size: 28px;
+  }
+
+  .card-feature h4 {
+    font-size: 18px;
+    margin-bottom: 7px;
+  }
+
+  .card-feature p {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.6;
+  }
+
+  /* cta final */
+  .cta-final {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .cta-final h3 {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .cta-final p {
+    color: #666;
+    margin-bottom: 25px;
+  }
+
+  /* ====== PAGINA 2 ====== */
+  .contenedor-opciones {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 70px 20px;
+    text-align: center;
+  }
+
+  .contenedor-opciones h2 {
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .contenedor-opciones > p {
+    color: #777;
+    margin-bottom: 40px;
+  }
+
+  .grid-opciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 50px;
+  }
+
+  @media(max-width: 580px) {
+    .grid-opciones {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card-opcion {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    padding: 35px 28px;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.2s;
+  }
+
+  .card-opcion:hover {
+    border-color: #2e7d32;
+    box-shadow: 0 5px 20px rgba(46,125,50,0.15);
+    transform: translateY(-3px);
+  }
+
+  /* icono grande en las cards de opcion */
+  .icono-opcion {
+    background: #e8f5e9;
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: #2e7d32;
+  }
+
+  .icono-opcion .material-symbols-outlined {
+    font-size: 32px;
+  }
+
+  .card-opcion h3 {
+    font-size: 22px;
+    margin-bottom: 7px;
+  }
+
+  .card-opcion p {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  /* plantillas */
+  .seccion-plantillas {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  .seccion-plantillas h3 {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .grid-plantillas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  @media(max-width: 500px) {
+    .grid-plantillas {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card-plantilla {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    padding: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: 0.2s;
+  }
+
+  .card-plantilla:hover {
+    border-color: #2e7d32;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  }
+
+  .icono-plantilla {
+    width: 46px;
+    height: 46px;
+    border-radius: 11px;
+    background: #e8f5e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #2e7d32;
+  }
+
+  .icono-plantilla .material-symbols-outlined {
+    font-size: 24px;
+  }
+
+  .card-plantilla h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .card-plantilla p {
+    font-size: 12px;
+    color: #999;
+  }
+
+  /* ====== PAGINA 3 / FORMULARIO ====== */
+  .contenedor-form {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  /* barra de progreso */
+  .barra-progreso {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 35px;
+  }
+
+  .paso-progreso {
+    flex: 1;
+    height: 5px;
+    border-radius: 5px;
+    background: #c8e6c9;
+  }
+
+  .paso-progreso.completado {
+    background: #2e7d32;
+  }
+
+  .texto-paso {
+    font-size: 12px;
+    color: #999;
+    white-space: nowrap;
+  }
+
+  .seccion-form {
+    display: none;
+  }
+
+  .seccion-form.activa {
+    display: block;
+  }
+
+  .encabezado-form {
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* icono + titulo del paso */
+  .titulo-paso {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .titulo-paso .material-symbols-outlined {
+    font-size: 30px;
+    color: #2e7d32;
+  }
+
+  .encabezado-form h2 {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .encabezado-form p {
+    color: #888;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .grupo-form {
+    margin-bottom: 22px;
+  }
+
+  .grupo-form label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+
+  /* TODO: hacer que se vean mejor en movil */
+  .grupo-form input,
+  .grupo-form select,
+  .grupo-form textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    background: white;
+    outline: none;
+    transition: 0.2s;
+  }
+
+  .grupo-form input:focus,
+  .grupo-form select:focus,
+  .grupo-form textarea:focus {
+    border-color: #2e7d32;
+  }
+
+  /* grid periodos */
+  .grid-periodo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .opcion-periodo {
+    border: 2px solid #ddd;
+    border-radius: 11px;
+    padding: 15px;
+    cursor: pointer;
+    text-align: center;
+    background: white;
+    transition: 0.2s;
+  }
+
+  .opcion-periodo:hover {
+    border-color: #43a047;
+  }
+
+  .opcion-periodo.seleccionado {
+    border-color: #2e7d32;
+    background: #e8f5e9;
+  }
+
+  .opcion-periodo .icono-periodo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6px;
+    color: #2e7d32;
+  }
+
+  .opcion-periodo .nombre-periodo {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .opcion-periodo .desc-periodo {
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  /* tarjetas persona */
+  .tarjeta-persona {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+
+  .header-persona {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .titulo-persona {
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #2e7d32;
+  }
+
+  .btn-quitar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-quitar:hover {
+    color: red;
+  }
+
+  .grid-persona {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  @media(max-width: 450px) {
+    .grid-persona {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .btn-agregar-persona {
+    width: 100%;
+    padding: 13px;
+    border: 2px dashed #a5d6a7;
+    border-radius: 11px;
+    background: transparent;
+    color: #2e7d32;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-agregar-persona:hover {
+    background: #e8f5e9;
+    border-color: #2e7d32;
+  }
+
+  /* opciones tienda */
+  .opciones-tienda {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  @media(max-width: 450px) {
+    .opciones-tienda {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .opcion-tienda {
+    border: 2px solid #ddd;
+    border-radius: 11px;
+    padding: 14px 10px;
+    cursor: pointer;
+    text-align: center;
+    background: white;
+    transition: 0.2s;
+  }
+
+  .opcion-tienda:hover {
+    border-color: #43a047;
+  }
+
+  .opcion-tienda.seleccionado {
+    border-color: #2e7d32;
+    background: #e8f5e9;
+  }
+
+  .opcion-tienda .icono-tienda {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6px;
+    color: #2e7d32;
+  }
+
+  .opcion-tienda .nombre-tienda {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .badge-opcional {
+    background: #ffe0b2;
+    color: #bf360c;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 7px;
+  }
+
+  /* navegacion formulario */
+  .nav-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid #eee;
+  }
+
+  .btn-atras {
+    background: transparent;
+    border: 2px solid #ddd;
+    color: #aaa;
+    padding: 11px 22px;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-atras:hover {
+    border-color: #2e7d32;
+    color: #2e7d32;
+  }
+
+  .btn-siguiente {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 13px 30px;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-siguiente:hover {
+    background: #43a047;
+    transform: translateY(-1px);
+  }
+
+  .caja-error {
+    background: #ffebee;
+    border: 1px solid #ef9a9a;
+    border-radius: 10px;
+    padding: 14px;
+    color: #c62828;
+    font-size: 14px;
+    margin-bottom: 18px;
+    display: none;
+  }
+
+  .caja-error.visible {
+    display: block;
+  }
+
+  /* ====== PAGINA 4 / RESULTADO ====== */
+  .contenedor-resultado {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 45px 20px;
+  }
+
+  .encabezado-resultado {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+
+  .encabezado-resultado h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .encabezado-resultado h2 .material-symbols-outlined {
+    font-size: 36px;
+    color: #2e7d32;
+  }
+
+  .encabezado-resultado p {
+    color: #999;
+  }
+
+  /* chips resumen */
+  .resumen-chips {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  @media(max-width:450px) {
+    .resumen-chips {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .chip {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .chip .valor {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2e7d32;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .chip .etiq {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 3px;
+  }
+
+  /* loading */
+  .estado-cargando {
+    text-align: center;
+    padding: 55px 0;
+  }
+
+  /* esto lo copie de un tutorial de animaciones css jeje */
+  .anillo-carga {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #c8e6c9;
+    border-top-color: #2e7d32;
+    border-radius: 50%;
+    animation: girar 0.9s linear infinite;
+    margin: 0 auto 18px;
+  }
+
+  @keyframes girar {
+    to { transform: rotate(360deg); }
+  }
+
+  .estado-cargando h3 {
+    font-size: 20px;
+    margin-bottom: 7px;
+  }
+
+  .estado-cargando p {
+    color: #aaa;
+    font-size: 14px;
+  }
+
+  /* resultado texto */
+  .texto-resultado {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 28px;
+    line-height: 1.8;
+    font-size: 15px;
+    white-space: pre-wrap;
+    display: none;
+  }
+
+  .texto-resultado.visible {
+    display: block;
+  }
+
+  /* acciones */
+  .acciones-resultado {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-accion {
+    background: white;
+    border: 2px solid #ddd;
+    color: #333;
+    padding: 11px 18px;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+  }
+
+  .btn-accion:hover {
+    border-color: #2e7d32;
+    color: #2e7d32;
+  }
+
+  .btn-accion.principal {
+    background: #2e7d32;
+    color: white;
+    border-color: #2e7d32;
+  }
+
+  .btn-accion.principal:hover {
+    background: #43a047;
+  }
+
+  .caja-error-res {
+    background: #ffebee;
+    border: 1px solid #ef9a9a;
+    border-radius: 10px;
+    padding: 14px;
+    color: #c62828;
+    font-size: 14px;
+    margin-bottom: 18px;
+    display: none;
+  }
+
+  .caja-error-res.visible {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<!-- navbar fija -->
+<nav class="navbar">
+  <h1 onclick="irA(1)">
+    <span class="material-symbols-outlined" style="color:white; font-size:26px;">eco</span>
+    Bite<span>&</span>Bytes
+  </h1>
+  <button onclick="irA(2)">
+    <span class="material-symbols-outlined" style="font-size:18px;">add_circle</span>
+    Crear mi plan
+  </button>
+</nav>
+
+<!-- ====== PAGINA 1: INICIO ====== -->
+<div class="pagina activa" id="pagina1">
+
+  <div class="hero-section">
+    <div class="badge">
+      <span class="material-symbols-outlined" style="font-size:16px;">nutrition</span>
+      Nutrición accesible para todos
+    </div>
+    <h2>Come <em>bien</em>,<br>gasta <em>poco</em></h2>
+    <p>Genera un plan alimentario personalizado según tu presupuesto, familia y condiciones de salud. Con IA, comer nutritivo ya no es privilegio de pocos.</p>
+    <div class="hero-btns">
+      <button class="btn-verde" onclick="irA(2)">
+        Crear mi plan gratuito
+        <span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
+      </button>
+      <button class="btn-outline" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+        <span class="material-symbols-outlined" style="font-size:20px;">help_outline</span>
+        ¿Cómo funciona?
+      </button>
+    </div>
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="numero">52M</div>
+        <div class="etiqueta">mexicanos en pobreza alimentaria</div>
+      </div>
+      <div class="stat-item">
+        <div class="numero">$0</div>
+        <div class="etiqueta">costo de usar Bite&Bytes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section" id="features">
+    <h3>Todo lo que necesitas para comer bien</h3>
+    <div class="grid-features">
+      <div class="card-feature">
+        <div class="icono-feature">
+          <span class="material-symbols-outlined">payments</span>
+        </div>
+        <h4>Respeta tu presupuesto</h4>
+        <p>Ingresa cuánto tienes disponible al mes, quincena o semana. La IA ajusta cada receta para no gastar de más.</p>
+      </div>
+      <div class="card-feature">
+        <div class="icono-feature">
+          <span class="material-symbols-outlined">family_group</span>
+        </div>
+        <h4>Para toda tu familia</h4>
+        <p>Personaliza el plan para cada integrante. Niños, adultos mayores, personas con diabetes, anemia o alergias.</p>
+      </div>
+      <div class="card-feature">
+        <div class="icono-feature">
+          <span class="material-symbols-outlined">shopping_cart</span>
+        </div>
+        <h4>Lista de compras lista</h4>
+        <p>Genera tu lista de súper con productos disponibles en Bodega Aurrerá, Walmart, Chedraui o tu mercado local.</p>
+      </div>
+      <div class="card-feature">
+        <div class="icono-feature">
+          <span class="material-symbols-outlined">skillet</span>
+        </div>
+        <h4>Recetas fáciles y rápidas</h4>
+        <p>Instrucciones paso a paso sin ingredientes raros. Comida real, mexicana, nutritiva y accesible para todos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-final">
+    <h3>¿Lista para empezar?</h3>
+    <p>En menos de 3 minutos tendrás tu plan alimentario personalizado.</p>
+    <button class="btn-verde" onclick="irA(2)" style="font-size:16px; padding:16px 38px; margin: 0 auto;">
+      Crear mi plan ahora
+      <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
+  </div>
+
+</div>
+
+<!-- ====== PAGINA 2: OPCIONES ====== -->
+<div class="pagina" id="pagina2">
+
+  <div class="contenedor-opciones">
+    <h2>¿Qué quieres hacer?</h2>
+    <p>Crea un plan personalizado o elige una plantilla ya lista para empezar rápido.</p>
+    <div class="grid-opciones">
+      <div class="card-opcion" onclick="irA(3)">
+        <div class="icono-opcion">
+          <span class="material-symbols-outlined">auto_awesome</span>
+        </div>
+        <h3>Crear mi plan</h3>
+        <p>Personaliza todo: presupuesto, número de personas, condiciones de salud, objetivos y tiendas preferidas.</p>
+      </div>
+      <div class="card-opcion" onclick="usarPlantilla('familia')">
+        <div class="icono-opcion">
+          <span class="material-symbols-outlined">assignment</span>
+        </div>
+        <h3>Usar plantilla</h3>
+        <p>Elige un plan prediseñado para situaciones comunes y ajústalo a tu gusto.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="seccion-plantillas">
+    <h3>Plantillas populares</h3>
+    <div class="grid-plantillas">
+      <div class="card-plantilla" onclick="usarPlantilla('mama3hijos')">
+        <div class="icono-plantilla">
+          <span class="material-symbols-outlined">family_group</span>
+        </div>
+        <div>
+          <h4>Mamá con 3 hijos</h4>
+          <p>$2,000 / mes · 4 personas</p>
+        </div>
+      </div>
+      <div class="card-plantilla" onclick="usarPlantilla('foraneo')">
+        <div class="icono-plantilla">
+          <span class="material-symbols-outlined">school</span>
+        </div>
+        <div>
+          <h4>Estudiante foráneo</h4>
+          <p>$1,200 / mes · 1 persona</p>
+        </div>
+      </div>
+      <div class="card-plantilla" onclick="usarPlantilla('adultomayor')">
+        <div class="icono-plantilla">
+          <span class="material-symbols-outlined">elderly</span>
+        </div>
+        <div>
+          <h4>Adulto mayor</h4>
+          <p>$1,500 / mes · 2 personas</p>
+        </div>
+      </div>
+      <div class="card-plantilla" onclick="usarPlantilla('diabetes')">
+        <div class="icono-plantilla">
+          <span class="material-symbols-outlined">medication</span>
+        </div>
+        <div>
+          <h4>Con diabetes</h4>
+          <p>$1,800 / mes · 1 persona</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ====== PAGINA 3: FORMULARIO ====== -->
+<div class="pagina" id="pagina3">
+
+  <div style="max-width:680px; margin:0 auto; padding: 30px 20px 0;">
+    <div class="barra-progreso">
+      <div class="paso-progreso completado" id="p1"></div>
+      <div class="paso-progreso" id="p2"></div>
+      <div class="paso-progreso" id="p3"></div>
+      <div class="paso-progreso" id="p4"></div>
+      <span class="texto-paso" id="textoProgreso">Paso 1 de 4</span>
+    </div>
+  </div>
+
+  <div class="contenedor-form">
+
+    <!-- paso 1 presupuesto -->
+    <div class="seccion-form activa" id="paso1">
+      <div class="encabezado-form">
+        <div class="titulo-paso">
+          <span class="material-symbols-outlined">payments</span>
+          <h2>Tu presupuesto</h2>
+        </div>
+        <p>¿Cuánto tienes disponible para la comida de tu familia?</p>
+      </div>
+      <div class="grupo-form">
+        <label>Presupuesto (en pesos mexicanos)</label>
+        <input type="number" id="presupuesto" placeholder="Ej: 2000" min="100" />
+      </div>
+      <div class="grupo-form">
+        <label>¿Cada cuánto es ese presupuesto?</label>
+        <div class="grid-periodo">
+          <div class="opcion-periodo" onclick="elegirPeriodo('mensual', this)">
+            <div class="icono-periodo">
+              <span class="material-symbols-outlined">calendar_month</span>
+            </div>
+            <div class="nombre-periodo">Mensual</div>
+            <div class="desc-periodo">Cada mes</div>
+          </div>
+          <div class="opcion-periodo" onclick="elegirPeriodo('quincenal', this)">
+            <div class="icono-periodo">
+              <span class="material-symbols-outlined">date_range</span>
+            </div>
+            <div class="nombre-periodo">Quincenal</div>
+            <div class="desc-periodo">Cada 15 días</div>
+          </div>
+          <div class="opcion-periodo" onclick="elegirPeriodo('semanal', this)">
+            <div class="icono-periodo">
+              <span class="material-symbols-outlined">view_week</span>
+            </div>
+            <div class="nombre-periodo">Semanal</div>
+            <div class="desc-periodo">Cada semana</div>
+          </div>
+          <div class="opcion-periodo" onclick="elegirPeriodo('diario', this)">
+            <div class="icono-periodo">
+              <span class="material-symbols-outlined">today</span>
+            </div>
+            <div class="nombre-periodo">Diario</div>
+            <div class="desc-periodo">Por día</div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-form">
+        <button class="btn-atras" onclick="irA(2)">
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+          Volver
+        </button>
+        <button class="btn-siguiente" onclick="siguientePaso(2)">
+          Continuar
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- paso 2 familia -->
+    <div class="seccion-form" id="paso2">
+      <div class="encabezado-form">
+        <div class="titulo-paso">
+          <span class="material-symbols-outlined">family_group</span>
+          <h2>Tu familia</h2>
+        </div>
+        <p>Cuéntanos sobre las personas para las que planearás la comida.</p>
+      </div>
+      <div id="listaPersonas"></div>
+      <button class="btn-agregar-persona" onclick="agregarPersona()">
+        <span class="material-symbols-outlined">person_add</span>
+        Agregar persona
+      </button>
+      <div class="nav-form">
+        <button class="btn-atras" onclick="anteriorPaso(1)">
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+          Anterior
+        </button>
+        <button class="btn-siguiente" onclick="siguientePaso(3)">
+          Continuar
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- paso 3 ubicacion -->
+    <div class="seccion-form" id="paso3">
+      <div class="encabezado-form">
+        <div class="titulo-paso">
+          <span class="material-symbols-outlined">location_on</span>
+          <h2>Dónde compras <span class="badge-opcional">Opcional</span></h2>
+        </div>
+        <p>Selecciona las tiendas que tienes cerca para que el plan use sus precios y productos.</p>
+      </div>
+      <div class="grupo-form">
+        <label>Tu ciudad o colonia (opcional)</label>
+        <input type="text" id="ciudad" placeholder="Ej: Puebla, Col. Centro..." />
+      </div>
+      <div class="grupo-form">
+        <label>Tiendas donde acostumbras comprar</label>
+        <div class="opciones-tienda">
+          <div class="opcion-tienda" onclick="toggleTienda('bodega', this)">
+            <div class="icono-tienda"><span class="material-symbols-outlined">store</span></div>
+            <div class="nombre-tienda">Bodega Aurrerá</div>
+          </div>
+          <div class="opcion-tienda" onclick="toggleTienda('walmart', this)">
+            <div class="icono-tienda"><span class="material-symbols-outlined">shopping_cart</span></div>
+            <div class="nombre-tienda">Walmart</div>
+          </div>
+          <div class="opcion-tienda" onclick="toggleTienda('chedraui', this)">
+            <div class="icono-tienda"><span class="material-symbols-outlined">storefront</span></div>
+            <div class="nombre-tienda">Chedraui</div>
+          </div>
+          <div class="opcion-tienda" onclick="toggleTienda('soriana', this)">
+            <div class="icono-tienda"><span class="material-symbols-outlined">local_mall</span></div>
+            <div class="nombre-tienda">Soriana</div>
+          </div>
+          <div class="opcion-tienda" onclick="toggleTienda('mercado', this)">
+            <div class="icono-tienda"><span class="material-symbols-outlined">local_florist</span></div>
+            <div class="nombre-tienda">Mercado local</div>
+          </div>
+          <div class="opcion-tienda" onclick="toggleTienda('oxxo', this)">
+            <div class="icono-tienda"><span class="material-symbols-outlined">night_shelter</span></div>
+            <div class="nombre-tienda">OXXO / tiendita</div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-form">
+        <button class="btn-atras" onclick="anteriorPaso(2)">
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+          Anterior
+        </button>
+        <button class="btn-siguiente" onclick="siguientePaso(4)">
+          Continuar
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- paso 4 objetivos -->
+    <div class="seccion-form" id="paso4">
+      <div class="encabezado-form">
+        <div class="titulo-paso">
+          <span class="material-symbols-outlined">flag</span>
+          <h2>¿Algún objetivo? <span class="badge-opcional">Opcional</span></h2>
+        </div>
+        <p>Si tienes alguna meta específica, la IA la tomará en cuenta.</p>
+      </div>
+      <div class="grupo-form">
+        <label>Objetivo principal (elige uno)</label>
+        <select id="objetivo">
+          <option value="">Solo comer bien y economizar</option>
+          <option value="bajar_peso">Bajar de peso saludablemente</option>
+          <option value="subir_peso">Subir de peso / ganar masa</option>
+          <option value="mas_energia">Más energía en el día</option>
+          <option value="salud_digestiva">Mejorar salud digestiva</option>
+          <option value="ninos_crecer">Que mis hijos crezcan fuertes</option>
+        </select>
+      </div>
+      <div class="grupo-form">
+        <label>Algo extra que quieras que sepa la IA</label>
+        <textarea id="extras" rows="3" placeholder="Ej: No me gusta el picante, prefiero comida que se pueda preparar en 30 min, no tenemos estufa de gas solo eléctrica..."></textarea>
+      </div>
+      <div class="caja-error" id="errorForm"></div>
+      <div class="nav-form">
+        <button class="btn-atras" onclick="anteriorPaso(3)">
+          <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+          Anterior
+        </button>
+        <button class="btn-siguiente" style="background:#e65100;" onclick="generarPlan()">
+          <span class="material-symbols-outlined" style="font-size:18px;">auto_awesome</span>
+          Generar mi plan
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ====== PAGINA 4: RESULTADO ====== -->
+<div class="pagina" id="pagina4">
+
+  <div class="contenedor-resultado">
+
+    <div class="encabezado-resultado">
+      <h2>
+        <span class="material-symbols-outlined">eco</span>
+        Tu Plan Bite&Bytes
+      </h2>
+      <p id="subtituloResultado">Generando tu plan personalizado...</p>
+    </div>
+
+    <div class="resumen-chips" id="chipsResumen" style="display:none;"></div>
+
+    <div class="estado-cargando" id="estadoCargando">
+      <div class="anillo-carga"></div>
+      <h3>Cocinando tu plan...</h3>
+      <p id="msgCargando">Analizando presupuesto y necesidades nutricionales...</p>
+    </div>
+
+    <div class="caja-error-res" id="errorResultado"></div>
+
+    <div class="texto-resultado" id="textoResultado"></div>
+
+    <div class="acciones-resultado" id="accionesResultado" style="display:none;">
+      <button class="btn-accion principal" onclick="window.print()">
+        <span class="material-symbols-outlined" style="font-size:17px;">print</span>
+        Imprimir plan
+      </button>
+      <button class="btn-accion" onclick="copiarPlan()">
+        <span class="material-symbols-outlined" style="font-size:17px;">content_copy</span>
+        Copiar
+      </button>
+      <button class="btn-accion" onclick="irA(3)">
+        <span class="material-symbols-outlined" style="font-size:17px;">refresh</span>
+        Nuevo plan
+      </button>
+      <button class="btn-accion" onclick="irA(1)">
+        <span class="material-symbols-outlined" style="font-size:17px;">home</span>
+        Inicio
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  var API_KEY = 'AIzaSyBEBB3TZ8G2-AIzaSyDIMkV2K3IW6F5QPCbDVX62Zlx86z6gPnoAIzaSyCsxGj6k1f2WBH4R9BKbcoJfAy5mW2OzGE'
+
+  var datos = {
+    presupuesto: '',
+    periodo: '',
+    personas: [],
+    ciudad: '',
+    tiendas: [],
+    objetivo: '',
+    extras: ''
+  }
+
+  var contadorPersonas = 0
+  var pasoActual = 1
+
+  function irA(num) {
+    var paginas = document.querySelectorAll('.pagina')
+    paginas.forEach(function(p) {
+      p.classList.remove('activa')
+    })
+    document.getElementById('pagina' + num).classList.add('activa')
+    window.scrollTo(0, 0)
+  }
+
+  function siguientePaso(num) {
+    if (num == 2) {
+      datos.presupuesto = document.getElementById('presupuesto').value
+      if (!datos.presupuesto || !datos.periodo) {
+        alert('Por favor ingresa tu presupuesto y selecciona el período.')
+        return
+      }
+    }
+    if (num == 3) { guardarPersonas() }
+    if (num == 4) { datos.ciudad = document.getElementById('ciudad').value }
+
+    pasoActual = num
+    var secciones = document.querySelectorAll('.seccion-form')
+    secciones.forEach(function(s) { s.classList.remove('activa') })
+    document.getElementById('paso' + num).classList.add('activa')
+    actualizarProgreso(num)
+    window.scrollTo(0, 0)
+  }
+
+  function anteriorPaso(num) {
+    pasoActual = num
+    var secciones = document.querySelectorAll('.seccion-form')
+    secciones.forEach(function(s) { s.classList.remove('activa') })
+    document.getElementById('paso' + num).classList.add('activa')
+    actualizarProgreso(num)
+    window.scrollTo(0, 0)
+  }
+
+  function actualizarProgreso(paso) {
+    for (var i = 1; i <= 4; i++) {
+      var bar = document.getElementById('p' + i)
+      if (i < paso) { bar.classList.add('completado') }
+      else { bar.classList.remove('completado') }
+    }
+    document.getElementById('textoProgreso').textContent = 'Paso ' + paso + ' de 4'
+  }
+
+  function elegirPeriodo(periodo, elem) {
+    datos.periodo = periodo
+    var opts = document.querySelectorAll('.opcion-periodo')
+    opts.forEach(function(o) { o.classList.remove('seleccionado') })
+    elem.classList.add('seleccionado')
+  }
+
+  function toggleTienda(tienda, elem) {
+    elem.classList.toggle('seleccionado')
+    if (elem.classList.contains('seleccionado')) {
+      datos.tiendas.push(tienda)
+    } else {
+      datos.tiendas = datos.tiendas.filter(function(t) { return t !== tienda })
+    }
+  }
+
+  function agregarPersona() {
+    contadorPersonas++
+    var lista = document.getElementById('listaPersonas')
+    var div = document.createElement('div')
+    div.className = 'tarjeta-persona'
+    div.id = 'persona' + contadorPersonas
+    div.innerHTML =
+      '<div class="header-persona">' +
+        '<div class="titulo-persona">' +
+          '<span class="material-symbols-outlined" style="font-size:20px;">person</span>' +
+          'Persona ' + contadorPersonas +
+        '</div>' +
+        (contadorPersonas > 1 ?
+          '<button class="btn-quitar" onclick="quitarPersona(' + contadorPersonas + ')">' +
+            '<span class="material-symbols-outlined" style="font-size:20px; color:#bbb;">close</span>' +
+          '</button>' : '') +
+      '</div>' +
+      '<div class="grid-persona">' +
+        '<div class="grupo-form"><label>Nombre (opcional)</label><input type="text" placeholder="Ej: Ana" data-campo="nombre" data-id="' + contadorPersonas + '" /></div>' +
+        '<div class="grupo-form"><label>Edad</label><input type="number" placeholder="Ej: 35" min="0" max="120" data-campo="edad" data-id="' + contadorPersonas + '" /></div>' +
+        '<div class="grupo-form"><label>Género</label><select data-campo="genero" data-id="' + contadorPersonas + '"><option value="">Seleccionar</option><option>Femenino</option><option>Masculino</option><option>Otro</option></select></div>' +
+        '<div class="grupo-form"><label>Peso (kg)</label><input type="number" placeholder="Ej: 60" data-campo="peso" data-id="' + contadorPersonas + '" /></div>' +
+        '<div class="grupo-form"><label>Altura (cm)</label><input type="number" placeholder="Ej: 160" data-campo="altura" data-id="' + contadorPersonas + '" /></div>' +
+        '<div class="grupo-form"><label>Condición de salud</label><select data-campo="condicion" data-id="' + contadorPersonas + '"><option value="">Ninguna</option><option>Anemia</option><option>Diabetes</option><option>Hipertensión</option><option>Colesterol alto</option><option>Sobrepeso</option><option>Embarazo / lactancia</option><option>Otra</option></select></div>' +
+      '</div>' +
+      '<div class="grupo-form"><label>Alergias o alimentos que no le gustan</label><input type="text" placeholder="Ej: no le gusta el brócoli, alérgico al maní..." data-campo="alergias" data-id="' + contadorPersonas + '" /></div>'
+    lista.appendChild(div)
+  }
+
+  function quitarPersona(id) {
+    var el = document.getElementById('persona' + id)
+    if (el) el.remove()
+  }
+
+  function guardarPersonas() {
+    datos.personas = []
+    var tarjetas = document.querySelectorAll('.tarjeta-persona')
+    tarjetas.forEach(function(tarjeta) {
+      var persona = {}
+      tarjeta.querySelectorAll('[data-campo]').forEach(function(campo) {
+        persona[campo.dataset.campo] = campo.value
+      })
+      datos.personas.push(persona)
+    })
+  }
+
+  var plantillas = {
+    mama3hijos: {
+      presupuesto: '2000', periodo: 'mensual',
+      personas: [
+        { nombre: 'Mamá', edad: '32', genero: 'Femenino', peso: '65', altura: '158', condicion: '', alergias: '' },
+        { nombre: 'Hijo 1', edad: '10', genero: 'Masculino', peso: '35', altura: '140', condicion: '', alergias: '' },
+        { nombre: 'Hijo 2', edad: '7', genero: 'Femenino', peso: '25', altura: '120', condicion: '', alergias: '' },
+        { nombre: 'Hijo 3', edad: '4', genero: 'Masculino', peso: '18', altura: '100', condicion: '', alergias: '' }
+      ],
+      objetivo: 'ninos_crecer', extras: 'Comida fácil y rápida', tiendas: ['bodega', 'mercado']
+    },
+    foraneo: {
+      presupuesto: '1200', periodo: 'mensual',
+      personas: [{ nombre: 'Yo', edad: '20', genero: 'Masculino', peso: '68', altura: '172', condicion: '', alergias: '' }],
+      objetivo: 'mas_energia', extras: 'Sin mucho tiempo para cocinar', tiendas: ['bodega', 'oxxo']
+    },
+    adultomayor: {
+      presupuesto: '1500', periodo: 'mensual',
+      personas: [
+        { nombre: 'Abuela', edad: '70', genero: 'Femenino', peso: '60', altura: '155', condicion: 'Hipertensión', alergias: '' },
+        { nombre: 'Abuelo', edad: '73', genero: 'Masculino', peso: '72', altura: '165', condicion: 'Diabetes', alergias: '' }
+      ],
+      objetivo: '', extras: 'Poca sal, comida suave', tiendas: ['walmart', 'soriana']
+    },
+    diabetes: {
+      presupuesto: '1800', periodo: 'mensual',
+      personas: [{ nombre: 'Yo', edad: '45', genero: 'Femenino', peso: '75', altura: '160', condicion: 'Diabetes', alergias: 'Sin azúcar' }],
+      objetivo: 'bajar_peso', extras: 'Comida baja en carbohidratos', tiendas: ['chedraui', 'mercado']
+    }
+  }
+
+  function usarPlantilla(clave) {
+    var t = plantillas[clave]
+    if (!t) return
+    datos.presupuesto = t.presupuesto
+    datos.periodo = t.periodo
+    datos.personas = t.personas
+    datos.objetivo = t.objetivo
+    datos.extras = t.extras
+    datos.tiendas = t.tiendas
+    irA(4)
+    generarPlan()
+  }
+
+  async function generarPlan() {
+    var objEl = document.getElementById('objetivo')
+    var extEl = document.getElementById('extras')
+    if (objEl) datos.objetivo = objEl.value
+    if (extEl) datos.extras = extEl.value
+
+    irA(4)
+
+    var periodoLabel = { mensual: 'Mensual', quincenal: 'Quincenal', semanal: 'Semanal', diario: 'Diario' }
+    var chips = document.getElementById('chipsResumen')
+    chips.style.display = 'grid'
+    chips.innerHTML =
+      '<div class="chip"><div class="valor">$' + parseInt(datos.presupuesto).toLocaleString() + '</div><div class="etiq">' + (periodoLabel[datos.periodo] || datos.periodo) + '</div></div>' +
+      '<div class="chip"><div class="valor">' + datos.personas.length + '</div><div class="etiq">Personas</div></div>' +
+      '<div class="chip"><div class="valor">' + (datos.tiendas.length > 0 ? datos.tiendas.length : '—') + '</div><div class="etiq">Tiendas</div></div>'
+
+    document.getElementById('estadoCargando').style.display = 'block'
+    document.getElementById('textoResultado').classList.remove('visible')
+    document.getElementById('accionesResultado').style.display = 'none'
+    document.getElementById('errorResultado').classList.remove('visible')
+
+    var mensajes = [
+      'Analizando presupuesto y necesidades nutricionales...',
+      'Calculando raciones para cada persona...',
+      'Buscando las mejores opciones económicas...',
+      'Armando tu menú semanal...',
+      'Generando lista de compras...',
+      'Revisando valores nutricionales...'
+    ]
+    var idxMsg = 0
+    var intervalo = setInterval(function() {
+      idxMsg = (idxMsg + 1) % mensajes.length
+      document.getElementById('msgCargando').textContent = mensajes[idxMsg]
+    }, 2000)
+
+    var descPersonas = datos.personas.map(function(p, i) {
+      var partes = []
+      if (p.nombre) partes.push('Nombre: ' + p.nombre)
+      if (p.edad) partes.push('Edad: ' + p.edad + ' años')
+      if (p.genero) partes.push('Género: ' + p.genero)
+      if (p.peso) partes.push('Peso: ' + p.peso + 'kg')
+      if (p.altura) partes.push('Altura: ' + p.altura + 'cm')
+      if (p.condicion) partes.push('Condición: ' + p.condicion)
+      if (p.alergias) partes.push('Alergias: ' + p.alergias)
+      return '  Persona ' + (i + 1) + ': ' + partes.join(', ')
+    }).join('\n')
+
+    var nombresTiendas = {
+      bodega: 'Bodega Aurrerá', walmart: 'Walmart', chedraui: 'Chedraui',
+      soriana: 'Soriana', mercado: 'Mercado local', oxxo: 'OXXO/tiendita'
+    }
+    var descTiendas = datos.tiendas.length > 0
+      ? datos.tiendas.map(function(t) { return nombresTiendas[t] }).join(', ')
+      : 'Tiendas accesibles en México'
+
+    var prompt = 'Eres un nutriólogo experto en alimentación económica en México. Tu misión es ayudar a familias de bajos recursos a comer bien sin gastar de más.\n\nDATOS DEL PLAN:\n- Presupuesto: $' + datos.presupuesto + ' pesos mexicanos (' + datos.periodo + ')\n- Personas:\n' + descPersonas + '\n- Tiendas preferidas: ' + descTiendas + '\n- Ciudad/zona: ' + (datos.ciudad || 'México (general)') + '\n- Objetivo: ' + (datos.objetivo || 'Alimentación nutritiva y económica') + '\n- Notas extra: ' + (datos.extras || 'Ninguna') + '\n\nGENERA UN PLAN COMPLETO con este formato EXACTO:\n\n═══════════════════════════════════\nRESUMEN ECONÓMICO\n═══════════════════════════════════\nPresupuesto ' + datos.periodo + ': $' + datos.presupuesto + '\nPresupuesto diario: $[calcula]\nCosto estimado por persona/día: $[calcula]\nAhorro estimado vs comer sin planear: $[calcula]\n\n═══════════════════════════════════\nLISTA DE COMPRAS (para la semana)\n═══════════════════════════════════\nLista de productos con precio aproximado en ' + descTiendas + ':\n[lista cada producto con su precio y cantidad necesaria]\nTOTAL ESTIMADO SEMANAL: $[total]\n\n═══════════════════════════════════\nMENU SEMANAL COMPLETO\n═══════════════════════════════════\n\nLUNES\nDesayuno: [plato] - $[costo aprox]\nComida: [plato] - $[costo]\nCena: [plato] - $[costo]\n\n[repite para MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO]\n\n═══════════════════════════════════\n3 RECETAS ESTRELLA (mas economicas)\n═══════════════════════════════════\n[Para las 3 recetas mas importantes, incluye ingredientes exactos y pasos sencillos]\n\n═══════════════════════════════════\nTIPS NUTRICIONALES PERSONALIZADOS\n═══════════════════════════════════\n[Tips especificos para las condiciones de salud mencionadas]\n\nSe especifico con precios reales de Mexico. Usa ingredientes accesibles: frijoles, arroz, tortillas, huevo, verduras de temporada.'
+
+    try {
+      var response = await fetch('/api/generar-plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            cprompt: prompt
+          })
+        }
+      )
+
+      if (!response.ok) {
+        var err = await response.json()
+        throw new Error(err.error?.message || 'Error ' + response.status)
+      }
+
+      var data = await response.json()
+      var texto = data.candidates[0].content.parts[0].text
+
+      var textoFormateado = texto
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\n/g, '<br>');
+
+      clearInterval(intervalo)
+      document.getElementById('estadoCargando').style.display = 'none'
+      document.getElementById('subtituloResultado').textContent =
+        'Plan listo para ' + datos.personas.length + ' persona' + (datos.personas.length > 1 ? 's' : '') +
+        ' · $' + parseInt(datos.presupuesto).toLocaleString() + ' ' + datos.periodo
+
+      var resultado = document.getElementById('textoResultado')
+      resultado.innerHTML = textoFormateado; 
+      resultado.classList.add('visible')
+      document.getElementById('accionesResultado').style.display = 'flex'
+
+    } catch (err) {
+      clearInterval(intervalo)
+      document.getElementById('estadoCargando').style.display = 'none'
+      var errRes = document.getElementById('errorResultado')
+      errRes.textContent = 'Error: ' + err.message + '. Verifica tu conexión e intenta de nuevo.'
+      errRes.classList.add('visible')
+      document.getElementById('accionesResultado').style.display = 'flex'
+    }
+  }
+
+  function copiarPlan() {
+    var texto = document.getElementById('textoResultado').textContent
+    navigator.clipboard.writeText(texto).then(function() {
+      alert('Plan copiado al portapapeles')
+    })
+  }
+
+  window.onload = function() {
+    agregarPersona()
+  }
+</script>
+</body>
+</html>
