@@ -1,39 +1,35 @@
-export default async function handler(req, res) {
+const { GoogleGenerativeAI } = require("@google/generai");
 
-  const API_KEY = process.env.GEMINI_API_KEY; 
-  const { prompt } = req.body;
+module.exports = async (req, res) => {
+  // 1. Configuración de la IA con la versión correcta (v1alpha)
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY, {
+    apiVersion: "v1alpha",
+  });
 
+  // 2. Selección del modelo compatible
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+  if (req.method === "POST") {
+    try {
+      const { prompt } = req.body;
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: prompt }]
-          }
-        ],
-        generationConfig: {
-          maxOutputTokens: 4000,
-          temperature: 0.7 
-        }
-      })
-    });
+      // 3. Generación del contenido
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      return res.status(response.status).json(data);
+      // 4. Enviamos la respuesta al frontend
+      res.status(200).json({ 
+        candidates: [{ 
+          content: { parts: [{ text: text }] } 
+        }] 
+      });
+    } catch (error) {
+      console.error("Error en la API:", error);
+      res.status(500).json({ error: error.message });
     }
-
-    res.status(200).json(data);
-  } catch (error) {
-    console.error("Error en el servidor:", error);
-    res.status(500).json({ error: "Error de conexión con el servidor de Node.js" });
+  } else {
+    // Si intentan entrar por navegador (GET) les damos un error amigable
+    res.status(405).json({ error: "Método no permitido. Usa POST desde el formulario." });
   }
-}
+};
