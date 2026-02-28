@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "266637425259",
+    "project_id": "byteandbite-73334",
+    "storage_bucket": "byteandbite-73334.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266637425259:android:8cd9fdc673f180b8154f2e",
+        "android_client_info": {
+          "package_name": "com.example.paginaweb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7aa7MDb5nhCnz-J07b-wf3NWEbWB6wrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
