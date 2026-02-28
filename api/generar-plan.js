@@ -1,24 +1,27 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 module.exports = async (req, res) => {
-  if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
+  
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') return res.status(200).end();
 
   try {
     const { prompt } = req.body;
-    // Usamos la versión de la librería que instalamos arriba
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    
+    
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
     
-    // El formato que tu index.html espera
-    const text = response.text();
     res.status(200).json({
-      candidates: [{ content: { parts: [{ text: text }] } }]
+      candidates: [{ content: { parts: [{ text: response.text() }] } }]
     });
   } catch (error) {
-    // Esto evita que salga el error 500 genérico y nos da pistas
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Error de Google", message: error.message });
   }
 };
