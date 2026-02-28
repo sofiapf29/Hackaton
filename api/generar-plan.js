@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
       candidates: [{ content: { parts: [{ text: response.text() }] } }]
     });
   } catch (error) {
-    res.status(500).json({ error: "Error de Google", message: error.message });
-  }
+    console.error("ERROR REAL:", error);
+    return res.status(500).json({ error: error.message });
+}
 };
