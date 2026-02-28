@@ -1,9 +1,7 @@
 {
   "name": "nutri-plan-gemini",
   "version": "1.0.0",
-  "type": "module",
   "dependencies": {
-    "@google/genai": "^1.43.0",
-    "node-fetch": "^3.3.0"
+    "@google/generative-ai": "^0.21.0"
   }
 }
