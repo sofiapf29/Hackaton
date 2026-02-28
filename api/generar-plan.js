@@ -1,35 +1,37 @@
-const { GoogleGenerativeAI } = require("@google/generai");
-
 module.exports = async (req, res) => {
-  // 1. Configuración de la IA con la versión correcta (v1alpha)
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY, {
-    apiVersion: "v1alpha",
-  });
+  // Solo permitimos peticiones POST
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Método no permitido" });
+  }
 
-  // 2. Selección del modelo compatible
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const { prompt } = req.body;
+  const apiKey = process.env.GEMINI_API_KEY;
 
-  if (req.method === "POST") {
-    try {
-      const { prompt } = req.body;
+  // Usamos la URL directa con la versión v1beta que es la más estable para este modelo
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-      // 3. Generación del contenido
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = response.text();
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }]
+      }),
+    });
 
-      // 4. Enviamos la respuesta al frontend
-      res.status(200).json({ 
-        candidates: [{ 
-          content: { parts: [{ text: text }] } 
-        }] 
-      });
-    } catch (error) {
-      console.error("Error en la API:", error);
-      res.status(500).json({ error: error.message });
+    const data = await response.json();
+
+    // Verificamos si Google respondió correctamente
+    if (data.candidates && data.candidates[0]) {
+      // Devolvemos la data en el formato exacto que tu index.html ya sabe leer
+      res.status(200).json(data);
+    } else {
+      res.status(500).json({ error: "La IA no devolvió resultados", detalles: data });
     }
-  } else {
-    // Si intentan entrar por navegador (GET) les damos un error amigable
-    res.status(405).json({ error: "Método no permitido. Usa POST desde el formulario." });
+  } catch (error) {
+    // Si algo falla, enviamos un JSON real para que no salga el error de "Token A"
+    res.status(500).json({ error: "Error de servidor", message: error.message });
   }
 };
