@@ -233,7 +233,7 @@ class _AppShellState extends State<AppShell> {
   bool cargando = false;
   String errorResultado = '';
 
-  static const String _apiKey = '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';
+  static const String _apiKey = String.fromEnvironment('GROQ_API_KEY', defaultValue: '');
 
   void irA(int pagina) {
     setState(() => paginaActual = pagina);
